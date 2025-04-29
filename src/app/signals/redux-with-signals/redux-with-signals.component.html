@@ -1,3 +1,17 @@
 <div>
   <p><a href="https://www.youtube.com/watch?v=rHQa4SpekaA">Youtube Link</a></p>
 </div>
+
+<div>
+  <select (change)="onUserChange()">
+    <option value="">--Select a user--</option>
+    @for (user of users(); track user.id) {
+      <!-- learning purpose only -->
+    @if (user.id % 2 == 0) {
+    <option [value]="user.id">{{user.name}} </option>
+    }@else {
+    <option [value]="user.id">{{user.name}}({{user.id}})</option>
+    }
+    }
+  </select>
+</div>
