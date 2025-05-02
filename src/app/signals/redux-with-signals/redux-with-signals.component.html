@@ -3,15 +3,24 @@
 </div>
 
 <div>
-  <select (change)="onUserChange()">
+  <select (change)="onUserChange($event.target)">
     <option value="">--Select a user--</option>
     @for (user of users(); track user.id) {
-      <!-- learning purpose only -->
+    <!-- learning purpose only -->
     @if (user.id % 2 == 0) {
-    <option [value]="user.id">{{user.name}} </option>
+    <option [value]="user.id">{{ user.name }}</option>
     }@else {
-    <option [value]="user.id">{{user.name}}({{user.id}})</option>
-    }
-    }
+    <option [value]="user.id">{{ user.name }}({{ user.id }})</option>
+    } }
   </select>
 </div>
+
+@if(isLoading()){
+<div class="loading">Loading...</div>
+} @else {
+<div class="loaded">
+  @for (todo of todos(); track todo.id) {
+  <li>{{ todo.todo }}</li>
+  }
+</div>
+}
