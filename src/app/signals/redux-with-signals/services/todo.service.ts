@@ -10,6 +10,7 @@ export class TodoService {
   private url = "https://dummyjson.com/todos/user/";
   private http = inject(HttpClient);
 
+  // Use a subject to react to changes that need an async operation
   userSelected = new Subject<number>();
   userSelected$ = this.userSelected.asObservable();
 
@@ -19,6 +20,7 @@ export class TodoService {
     todos: [],
     isLoading: false,
     error: undefined,
+    showOnlyIncomplete: false,
   });
 
   //   selectors
@@ -26,9 +28,26 @@ export class TodoService {
   isLoading = computed(() => this.todoState().isLoading);
   error = computed(() => this.todoState().error);
   selectedUserId = computed(() => this.todoState().selectedUserId);
+  showOnlyIncomplete = computed(() => this.todoState().showOnlyIncomplete);
+  filteredTodos = computed(() => {
+    if (this.showOnlyIncomplete()) {
+      return this.todos().filter((todo) => !todo.completed);
+    } else {
+      return this.todos();
+    }
+  });
 
   //   actions
   setSelectedUserId(userId: number) {
+    if (!userId) {
+      this.todoState.set({
+        selectedUserId: undefined,
+        todos: [],
+        isLoading: false,
+        error: undefined,
+        showOnlyIncomplete: false,
+      });
+    }
     this.todoState.update((state) => ({
       ...state,
       selectedUserId: userId,
@@ -49,6 +68,8 @@ export class TodoService {
     }));
   }
 
+  // Reducers
+  // Define how actions should update state
   constructor() {
     this.userSelected$
       .pipe(
@@ -72,6 +93,22 @@ export class TodoService {
   getToDosByUserId(userId: number) {
     this.userSelected.next(userId);
   }
+
+  onTodoStatusChange(todo: ToDo, checked: boolean) {
+    this.todoState.update((state) => ({
+      ...state,
+      todos: state.todos.map((t) =>
+        t.id === todo.id ? { ...t, completed: checked } : t
+      ),
+    }));
+  }
+
+  onFilterIncompleteDoTodos(checked: boolean) {
+    this.todoState.update((state) => ({
+      ...state,
+      showOnlyIncomplete: checked,
+    }));
+  }
 }
 
 export interface ToDoState {
@@ -79,6 +116,7 @@ export interface ToDoState {
   todos: ToDo[];
   isLoading: boolean;
   error: string | undefined;
+  showOnlyIncomplete: boolean;
 }
 
 export interface ToDo {

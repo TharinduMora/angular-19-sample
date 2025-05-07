@@ -1,26 +1,42 @@
-<div>
-  <p><a href="https://www.youtube.com/watch?v=rHQa4SpekaA">Youtube Link</a></p>
-</div>
+<div class="container">
+  <div>
+    <p>
+      <a href="https://www.youtube.com/watch?v=rHQa4SpekaA">Youtube Link</a>
+    </p>
+  </div>
 
-<div>
-  <select (change)="onUserChange($event.target)">
-    <option value="">--Select a user--</option>
-    @for (user of users(); track user.id) {
-    <!-- learning purpose only -->
-    @if (user.id % 2 == 0) {
-    <option [value]="user.id">{{ user.name }}</option>
-    }@else {
-    <option [value]="user.id">{{ user.name }}({{ user.id }})</option>
-    } }
-  </select>
-</div>
+  <div>
+    <select (change)="onUserChange($event.target)">
+      <option value="">--Select a user--</option>
+      @for (user of users(); track user.id) {
+      <!-- learning purpose only -->
+      @if (user.id % 2 == 0) {
+      <option [value]="user.id" style="color: blue">{{ user.name }}</option>
+      }@else {
+      <option [value]="user.id" style="color: red">{{ user.name }}</option>
+      } }
+    </select>
+    <input
+      type="checkbox"
+      [checked]="showOnlyIncomplete()"
+      (change)="onFilterIncompleteDoTodos($event.target)"
+    />
+    Show only incomplete todos
+  </div>
 
-@if(isLoading()){
-<div class="loading">Loading...</div>
-} @else {
-<div class="loaded">
-  @for (todo of todos(); track todo.id) {
-  <li>{{ todo.todo }}</li>
+  @if(isLoading()){
+  <div class="loading">Loading...</div>
+  } @else {
+  <div class="loaded">
+    @for (todo of filteredTodos(); track todo.id) {
+    <li>
+      <input
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="onTodoStatusChange(todo, $event.target)"
+      />{{ todo.todo }}
+    </li>
+    }
+  </div>
   }
 </div>
-}

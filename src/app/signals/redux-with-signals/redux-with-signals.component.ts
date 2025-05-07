@@ -1,6 +1,6 @@
 import { Component, effect, inject, OnInit } from "@angular/core";
 import { UserService } from "./services/user.service";
-import { TodoService } from "./services/todo.service";
+import { ToDo, TodoService } from "./services/todo.service";
 
 @Component({
   selector: "app-redux-with-signals",
@@ -16,16 +16,31 @@ export class ReduxWithSignalsComponent implements OnInit {
   users = this.userService.usersList;
   todos = this.todoService.todos;
   isLoading = this.todoService.isLoading;
+  showOnlyIncomplete = this.todoService.showOnlyIncomplete;
+  filteredTodos = this.todoService.filteredTodos;
 
   constructor() {
     // IMPORTANT: using effect() to track changes in the signal
     effect(() => {
-      console.log(`The current users are: ${this.users()}`);
+      console.log(`The current todos are: ${JSON.stringify(this.todos())}`);
     });
   }
 
   onUserChange(ele: EventTarget | null) {
     this.todoService.getToDosByUserId(Number((ele as HTMLSelectElement).value));
+  }
+
+  onTodoStatusChange(todo: ToDo, ele: EventTarget | null) {
+    this.todoService.onTodoStatusChange(
+      todo,
+      Boolean((ele as HTMLInputElement).checked)
+    );
+  }
+
+  onFilterIncompleteDoTodos(ele: EventTarget | null) {
+    this.todoService.onFilterIncompleteDoTodos(
+      Boolean((ele as HTMLInputElement).checked)
+    );
   }
 
   ngOnInit(): void {
