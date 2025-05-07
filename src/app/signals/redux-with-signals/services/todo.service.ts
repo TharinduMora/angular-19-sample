@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { map, Subject, switchMap, take, tap } from "rxjs";
+import { map, of, Subject, switchMap, take, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -75,7 +75,7 @@ export class TodoService {
       .pipe(
         tap(() => this.setLoading(true)),
         tap((x: number) => this.setSelectedUserId(x)),
-        switchMap(() => this.getToDos()),
+        switchMap((id) => this.getToDos(id)),
         takeUntilDestroyed()
       )
       .subscribe((todos: ToDo[]) => {
@@ -84,9 +84,10 @@ export class TodoService {
       });
   }
 
-  getToDos() {
+  getToDos(id: number) {
+    if (!id) return of([]);
     return this.http
-      .get<{ todos: ToDo[] }>(`${this.url}${this.selectedUserId()}`)
+      .get<{ todos: ToDo[] }>(`${this.url}${id}`)
       .pipe(map((res) => res.todos));
   }
 
