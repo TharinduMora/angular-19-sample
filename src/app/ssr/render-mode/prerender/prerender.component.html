@@ -1,0 +1,28 @@
+<div style="padding: 20px">
+  <h3>Prerender Render Mode</h3>
+  <p>Route : <code> render-mode/prerender</code></p>
+  <p>Render Mode : <code> RenderMode.Prerender</code></p>
+  <p style="color: red">
+    Above configurations have been configured in
+    <code>app.routes.server.ts</code> file
+  </p>
+
+  <li>
+    If the RenderMode is Prerender, the related component will be pre-rendered
+    at build time. Then the pre-rendered HTML will be served to the client's
+    browser. The recommended approach is to use a static webpage for this mode.
+  </li>
+
+  <li>
+    Pre-rendered webpage can be seen at
+    <code>\dist\angular-19-sample\browser\render-mode</code>
+  </li>
+
+  <p>
+    <b>Open the network tab and refresh the window</b> and check whether API is
+    calling or not.
+  </p>
+
+  <h3>API data</h3>
+  <code>{{ post | json }}</code>
+</div>

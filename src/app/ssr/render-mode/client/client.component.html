@@ -1,0 +1,18 @@
+<div style="padding: 20px">
+  <h3>Client Render Mode</h3>
+  <p>Route : <code> render-mode/client</code></p>
+  <p>Render Mode : <code> RenderMode.Client</code></p>
+  <p style="color: red">
+    Above configurations have been configured in
+    <code>app.routes.server.ts</code> file
+  </p>
+
+  <p><b>This component is loaded on client browser</b></p>
+
+  <h3>API data</h3>
+  @for (item of todos; track $index) {
+  <li>
+    <code>{{ item | json }}</code>
+  </li>
+  }
+</div>
