@@ -1,11 +1,9 @@
 import { Component } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatListModule } from "@angular/material/list";
 
 @Component({
   selector: "app-signals-landing",
-  imports: [RouterOutlet, RouterModule, MatSidenavModule, MatListModule],
+  imports: [RouterOutlet, RouterModule],
   templateUrl: "./signals-landing.component.html",
   styleUrl: "./signals-landing.component.scss",
 })

@@ -1,0 +1,19 @@
+<div class="main-container">
+  <h3>Build Generalized DRY Angular Code with Generics</h3>
+  <h4>DRY - Don't Repeat Yourself</h4>
+  <a href="https://www.youtube.com/watch?v=ebVNm8IylrA">Watch this video</a>
+</div>
+
+<div>
+  <div>Snack: {{ snack().name }} In stock: {{ snack().isInStock }}</div>
+  <div><button (click)="updateSnack()">Update Snack</button></div>
+  <br />
+  <div>User: {{ user().name }}</div>
+  <div><button (click)="updateUser()">Update User</button></div>
+</div>
+
+<p>
+  The usage of <code>K extends keyof T</code> in the codebase helps maintain the
+  DRY principle by enabling the implementation of generic methods that work with
+  different object types.
+</p>

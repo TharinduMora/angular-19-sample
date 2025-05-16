@@ -1,10 +1,7 @@
-<mat-nav-list>
-  <mat-list-item
-    [routerLink]="'/signals/redux-with-signals'"
-    [routerLinkActive]="['active']"
+<div class="main-container">
+  <a class="nav-item" routerLink="redux-with-signals" routerLinkActive="active">
+    Redux With Signals</a
   >
-    Redux With Signals
-  </mat-list-item>
-</mat-nav-list>
-
-<router-outlet />
+  <hr />
+  <router-outlet />
+</div>
