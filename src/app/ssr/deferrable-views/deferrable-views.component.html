@@ -1,0 +1,106 @@
+<div style="padding: 20px">
+  <p style="padding-bottom: 30px">
+    Please run the app with <code>npm run serve:ssr:angular-19-sample</code>
+  </p>
+  @defer (on timer(20000)) {
+  <section class="container success">
+    <component-1 />
+    <br />
+    <code>{{ "@defer (on timer(20000))" }}</code>
+  </section>
+  } @placeholder {
+  <section class="container placeholder">
+    <h3>This is the component 1 placeholder.</h3>
+    <h5>
+      This placeholder will be visible for 20 seconds because the defer timer is
+      set to 20s.
+    </h5>
+    <br /><code>{{ "@defer (on timer(20000))" }}</code>
+  </section>
+  } @loading (minimum 10s) {
+  <section class="container loading">
+    <div>
+      Component 1 is loading. Loading section is being displayed for 10 seconds
+      because we have set <code>{{ "@loading (minimum 10s)" }}</code>
+    </div>
+  </section>
+
+  } @error {
+  <section class="container error">An error occurred</section>
+  }
+
+  <hr />
+
+  <p>
+    <button (click)="loadCM1 = true" class="test-btn">Click here</button> to
+    load component 2. You can observe the network tab to see the chunk for
+    component-2 being loaded.
+  </p>
+  @defer(when loadCM1 == true) {
+  <section class="container success">
+    <component-2 />
+    <br />
+    <code>{{ " @defer(when loadCM1 == true)" }}</code>
+  </section>
+  }@placeholder(minimum 500ms) {
+  <section class="container placeholder">
+    <h3>This is Component 2 placeholder.</h3>
+    <h5>
+      This will be shown until the button click and component-2 related chunk
+      starts loading.
+    </h5>
+    <br />
+    <code>{{ " @defer(when loadCM1 == true)" }}</code>
+  </section>
+  }@loading {
+  <section class="container loading">Component 2 is loading</section>
+  } @error {
+  <section class="container error">An error occurred</section>
+  }
+</div>
+
+<div class="container">Blank area to increase the page height</div>
+<div class="container"></div>
+
+@defer(on viewport) {
+<section class="container success">
+  <component-3 />
+  <br />
+  <code>{{ "@defer(on viewport)" }}</code>
+</section>
+}@placeholder(minimum 500ms) {
+<section class="container placeholder">
+  <h3>This is Component 3 placeholder.</h3>
+  <h5>
+    This will be shown until the button click and component-2 related chunk
+    starts loading.
+  </h5>
+</section>
+}@loading (minimum 5s) {
+<section class="container loading">
+  Component 3 is loading after the viewport reached
+  <br />
+  <code>{{ "@defer(on viewport)" }}</code>
+</section>
+}
+
+<hr />
+<div #trigger>Trigger Element</div>
+@defer(on viewport(trigger)) {
+<section class="container success">
+  <component-4 />
+  <br />
+  <code>{{ "@defer(on viewport(trigger))" }}</code>
+</section>
+}@placeholder(minimum 500ms) {
+<section class="container placeholder">
+  <h3>This is Component 4 placeholder.</h3>
+  <h5>This will be shown until the viewport reached trigger element</h5>
+</section>
+}@loading (minimum 5s) {
+<section class="container loading">
+  Component 4 is loading after the viewport reached the trigger element
+  <br />
+  <code>{{ "@defer(on viewport(trigger))" }}</code>
+</section>
+}

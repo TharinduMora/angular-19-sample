@@ -6,6 +6,7 @@ import { RenderModeComponent } from "./ssr/render-mode/render-mode.component";
 import { ClientComponent } from "./ssr/render-mode/client/client.component";
 import { ServerComponent } from "./ssr/render-mode/server/server.component";
 import { PrerenderComponent } from "./ssr/render-mode/prerender/prerender.component";
+import { DeferrableViewsComponent } from "./ssr/deferrable-views/deferrable-views.component";
 
 export const routes: Routes = [
   {
@@ -55,6 +56,13 @@ export const routes: Routes = [
         pathMatch: "full",
       },
     ],
+  },
+  {
+    path: "deferrable-views",
+    loadComponent: () =>
+      import("./ssr/deferrable-views/deferrable-views.component").then(
+        (m) => m.DeferrableViewsComponent
+      ),
   },
   {
     path: "",

@@ -1,7 +1,16 @@
+.nav-container {
+  padding: 10px;
+}
 .nav-item {
   padding: 15px;
+  background-color: gray;
+}
+
+.nav-item:hover {
+  background-color: rgb(84, 84, 84);
 }
 
 .active {
-  font-weight: bold;
+  background-color: black;
+  color: white;
 }
