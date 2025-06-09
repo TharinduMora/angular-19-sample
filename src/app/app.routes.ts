@@ -16,6 +16,13 @@ export const routes: Routes = [
     component: SignalsLandingComponent,
     children: [
       {
+        path: "signals-basics",
+        loadComponent: () =>
+          import("./signals/signal-basics/signal-basics.component").then(
+            (m) => m.SignalBasicsComponent
+          ),
+      },
+      {
         path: "redux-with-signals",
         loadComponent: () =>
           import(
@@ -24,7 +31,7 @@ export const routes: Routes = [
       },
       {
         path: "",
-        redirectTo: "redux-with-signals",
+        redirectTo: "signals-basics",
         pathMatch: "full",
       },
     ],
