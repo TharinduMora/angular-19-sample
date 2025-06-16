@@ -89,6 +89,11 @@ export const routes: Routes = [
     ],
   },
   {
+    path: "rxjs",
+    loadComponent: () => import("./rxjs/rxjs.component").then(
+      (m) => m.RxjsComponent)
+  },
+  {
     path: "",
     redirectTo: "signals",
     pathMatch: "full",

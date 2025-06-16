@@ -1,0 +1,52 @@
+<div>
+  <h1>RXJS</h1>
+  <p>
+    RXJS is a library that helps you work with data that changes over time, like
+    user actions, web requests, or timers. It makes handling these updates
+    easier and more organized.
+  </p>
+  <p>
+    In Angular, RXJS is often used for things like handling events and making
+    HTTP requests. It helps you write code that is easier to read and manage by
+    letting you change and combine data streams in simple ways.
+  </p>
+  <hr />
+</div>
+
+<div>
+  <h1>Async Pipe</h1>
+  <p>
+    The Async Pipe is a built-in Angular pipe that allows you to subscribe to an
+    Observable or Promise and automatically unsubscribe when the component is
+    destroyed.
+  </p>
+  @for (item of users$ | async; track $index) {
+  <li>{{ item | json }}</li>
+  }
+  <hr />
+</div>
+
+<div>
+  <h3>Using Pipe and Map operator</h3>
+  @for (item of usernames$ | async; track $index) {
+  <li>{{ item | json }}</li>
+  }
+  <hr />
+</div>
+
+<div>
+  <h3>Usage of interval , switchMap & filter operators</h3>
+  <p>
+    <b>interval</b> creates an observable that emits sequential numbers every
+    specified interval (in milliseconds)
+  </p>
+  <p>
+    <b>switchMap</b> is used to switch to a new observable when the source emits
+    a value
+  </p>
+  <p><b>filter</b> is used to filter emitted values based on a condition</p>
+  <div>
+    <li>Seconds: {{ secondsCounter$ | async }}</li>
+    <li>Even Seconds: {{ evenSecondsCounter$ | async }}</li>
+  </div>
+</div>
